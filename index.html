@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Presença</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Controle de Presença</h1>
+    <div>SheetDB • Admin protegido</div>
+  </header>
+
+  <div class="menu">
+    <button id="menuInicial" class="active" onclick="showSection('inicial')">Inicial</button>
+    <button id="menuAdmin" onclick="showSection('admin')">Admin</button>
+  </div>
+
+  <!-- Seção Inicial -->
+  <section id="sec-inicial">
+    <div class="card">
+      <h2>Registrar Presença</h2>
+      <form id="formPresenca">
+        <label>Nome</label>
+        <input type="text" id="nome" required placeholder="Ex: João Silva">
+        <label>Turma</label>
+        <input type="text" id="turma" placeholder="Ex: DS I">
+        <label>Série</label>
+        <input type="text" id="serie" placeholder="Ex: 1º ano">
+        <div class="btn-group">
+          <button class="btn" type="submit">Registrar</button>
+          <button type="button" class="btn" onclick="clearForm()">Limpar</button>
+        </div>
+        <div id="statusMsg" class="status"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Seção Admin -->
+  <section id="sec-admin" style="display:none;">
+    <div class="card" id="adminLoginWrap">
+      <h2>Login Admin</h2>
+      <input type="password" id="adminSenha" placeholder="Senha do admin">
+      <button class="btn" onclick="adminLogin()">Entrar</button>
+      <div id="adminLoginMsg" class="status"></div>
+    </div>
+
+    <div id="adminPanel" style="display:none;">
+      <div class="admin-header">
+        <h2>Lista de Presenças</h2>
+        <div class="admin-controls">
+          <input type="text" id="searchInput" placeholder="Buscar..." oninput="filterTable()">
+          <button class="btn" onclick="logoutAdmin()">Sair</button>
+          <button class="btn" onclick="exportCSV()">Exportar CSV</button>
+          <button class="btn red" onclick="deleteAllConfirm()">Apagar todos</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Turma</th>
+              <th>Série</th>
+              <th>Data</th>
+              <th>Hora</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Desenvolvido por <strong>TheBestHack</strong>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
