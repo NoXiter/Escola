@@ -1,4 +1,4 @@
-const SHEETDB_URL = 'https://sheetdb.io/api/v1/ufv7ejgmcj9nk';
+const SHEETDB_URL = 'https://sheetdb.io/api/v1/l64dcgp3xbgwx';
 const ADMIN_PASSWORD = 'admin0000';
 let fullData = [];
 
@@ -72,49 +72,16 @@ function logoutAdmin(){
 async function carregarPresencas(){
   const res = await fetch(SHEETDB_URL);
   const data = await res.json();
-  fullData = data;
-  renderTable(data);
+  // Guardar ID único de cada registro
+  fullData = data.map(r=>({ ...r, id: r.id }));
+  renderTable(fullData);
 }
 
 function renderTable(data){
   const tbody = document.getElementById('tableBody');
   tbody.innerHTML='';
-  data.forEach((row,index)=>{
+  data.forEach(row=>{
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${row.Nome||''}</td><td>${row.Turma||''}</td><td>${row.Serie||''}</td><td>${row.Data||''}</td><td>${row.Hora||''}</td>
-    <td><button class="btn red" onclick="deleteRow(${index})">Deletar</button></td>`;
-    tbody.appendChild(tr);
-  });
-}
-
-function filterTable(){
-  const val = document.getElementById('searchInput').value.toLowerCase();
-  const filtered = fullData.filter(r=>r.Nome.toLowerCase().includes(val)||r.Turma.toLowerCase().includes(val)||r.Serie.toLowerCase().includes(val));
-  renderTable(filtered);
-}
-
-// Export CSV
-function exportCSV(){
-  let csv='Nome,Turma,Série,Data,Hora\n';
-  fullData.forEach(r=>{csv+=`${r.Nome||''},${r.Turma||''},${r.Serie||''},${r.Data||''},${r.Hora||''}\n`});
-  const blob=new Blob([csv],{type:'text/csv'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a'); a.href=url; a.download='presencas.csv'; a.click(); URL.revokeObjectURL(url);
-}
-
-// Deletar registro
-async function deleteRow(index){
-  const nome = fullData[index].Nome;
-  if(!confirm(`Tem certeza que deseja deletar a presença de ${nome}?`)) return;
-  await fetch(`${SHEETDB_URL}?Nome=${encodeURIComponent(nome)}`,{method:'DELETE'});
-  await carregarPresencas();
-}
-
-// Deletar todos
-async function deleteAllConfirm(){
-  if(!confirm('Tem certeza que deseja apagar todos os registros?')) return;
-  if(!confirm('⚠️ Essa ação não pode ser desfeita. Deseja mesmo apagar tudo?')) return;
-  await fetch(SHEETDB_URL,{method:'DELETE'});
-  alert('✅ Todos os registros foram apagados com sucesso.');
-  await carregarPresencas();
-    }
+    tr.innerHTML = `<td>${row.Nome||''}</td><td>${row.Turma||''}</td><td>${row.Serie||''}</td>
+    <td>${row.Data||''}</td><td>${row.Hora||''}</td>
+    <td><button class="btn red" onclick="deleteRow('${row
