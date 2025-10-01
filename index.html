@@ -1,86 +1,125 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Controle de Presença</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Controle de Presença — Final</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>Controle de Presença</h1>
-    <div>SheetDB • Admin protegido</div>
-  </header>
+  <div class="app">
+    <header class="top">
+      <div class="brand">
+        <img src="https://i.ibb.co/wN5NCN0W/BRASAO-semfundo.png" alt="Logo" class="logo-img"/>
+        <div>
+          <h1>Controle de Presença</h1>
+          <p class="subtitle">Planilha: SheetDB • Painel admin protegido</p>
+        </div>
+      </div>
+      <nav class="nav">
+        <button id="menuInicial" class="nav-btn active" data-section="inicial">Inicial</button>
+        <button id="menuAdmin" class="nav-btn" data-section="admin">Admin</button>
+      </nav>
+    </header>
 
-  <div class="menu">
-    <button id="menuInicial" class="active" onclick="showSection('inicial')">Inicial</button>
-    <button id="menuAdmin" onclick="showSection('admin')">Admin</button>
+    <main class="main">
+      <!-- INICIAL -->
+      <section id="inicial" class="section active">
+        <div class="card card--glass">
+          <h2>Registrar presença</h2>
+          <form id="formPresenca" class="form" autocomplete="off">
+            <input id="nome" type="text" placeholder="Nome completo" autocomplete="name" required>
+
+            <div class="row">
+              <div class="col">
+                <label for="curso" class="label">Curso</label>
+                <select id="curso" required>
+                  <option value="">Selecione o curso</option>
+                  <option value="DS">DS</option>
+                  <option value="GASTRO">GASTRO</option>
+                  <option value="ADM">ADM</option>
+                </select>
+              </div>
+
+              <div class="col">
+                <label for="turma" class="label">Turma</label>
+                <select id="turma" required>
+                  <option value="">Selecione a turma</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <label for="serie" class="label">Série</label>
+                <select id="serie" required>
+                  <option value="">Selecione a série</option>
+                  <option value="1ª">1ª</option>
+                  <option value="2ª">2ª</option>
+                  <option value="3ª">3ª</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="btn btn-primary" type="submit">Registrar</button>
+              <button class="btn btn-ghost" type="button" id="btnLimpar">Limpar</button>
+            </div>
+            <div id="statusMsg" class="status" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ADMIN -->
+      <section id="admin" class="section" aria-hidden="true" style="display:none">
+        <div class="card card--glass" id="adminLoginCard">
+          <h2>Login — Admin</h2>
+          <input id="adminSenha" type="password" placeholder="Senha do admin" class="input-admin">
+          <div class="actions" style="margin-top:12px">
+            <button class="btn btn-primary" id="btnEntrar">Entrar</button>
+            <div id="adminLoginMsg" class="status" role="status" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <div id="adminPanel" style="display:none">
+          <div class="card card--glass">
+            <div class="panel-top">
+              <input id="searchInput" type="text" placeholder="Buscar por nome / curso / turma / série" />
+              <div class="panel-actions">
+                <button class="btn btn-ghost" id="btnLogout">Sair</button>
+                <button class="btn" id="btnCSV">Exportar CSV</button>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table id="presencaTable" class="table">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Curso</th>
+                    <th>Turma</th>
+                    <th>Série</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      Desenvolvido por <strong>PH DEV</strong>
+    </footer>
+
+    <div id="toast" class="toast" aria-hidden="true"></div>
   </div>
 
-  <!-- Seção Inicial -->
-  <section id="sec-inicial">
-    <div class="card">
-      <h2>Registrar Presença</h2>
-      <form id="formPresenca">
-        <label>Nome</label>
-        <input type="text" id="nome" required placeholder="Nome completo">
-        <label>Turma</label>
-        <input type="text" id="turma" placeholder="Ex: DS II">
-        <label>Série</label>
-        <input type="text" id="serie" placeholder="Ex: 1º ano">
-        <div class="btn-group">
-          <button class="btn" type="submit">Registrar</button>
-          <button type="button" class="btn" onclick="clearForm()">Limpar</button>
-        </div>
-        <div id="statusMsg" class="status"></div>
-      </form>
-    </div>
-  </section>
-
-  <!-- Seção Admin -->
-  <section id="sec-admin" style="display:none;">
-    <div class="card" id="adminLoginWrap">
-      <h2>Login Admin</h2>
-      <input type="password" id="adminSenha" placeholder="Senha do admin">
-      <button class="btn" onclick="adminLogin()">Entrar</button>
-      <div id="adminLoginMsg" class="status"></div>
-    </div>
-
-    <div id="adminPanel" style="display:none;">
-      <div class="admin-header">
-        <h2>Lista de Presenças</h2>
-        <div class="admin-controls">
-          <input type="text" id="searchInput" placeholder="Buscar..." oninput="filterTable()">
-          <button class="btn" onclick="logoutAdmin()">Sair</button>
-          <button class="btn" onclick="exportCSV()">Exportar CSV</button>
-          <button class="btn red" onclick="deleteAllConfirm()">Apagar todos</button>
-        </div>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Turma</th>
-              <th>Série</th>
-              <th>Data</th>
-              <th>Hora</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    Desenvolvido por <strong>PH</strong>
-  </footer>
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
