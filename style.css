@@ -27,7 +27,7 @@ html,body{height:100%; margin:0; font-family:var(--fw); background:linear-gradie
 .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px; margin-bottom:16px; border:1px solid rgba(255,255,255,0.03)}
 .card--glass{backdrop-filter: blur(6px);}
 
-/* Form */
+
 .form input, .form select{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:inherit;margin-top:10px;outline:none}
 .input-admin{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:inherit;margin-top:10px;outline:none}
 .row{display:flex;gap:12px;margin-top:8px}
@@ -40,12 +40,12 @@ html,body{height:100%; margin:0; font-family:var(--fw); background:linear-gradie
 .btn-danger{background:linear-gradient(90deg,var(--danger),#ff2b42);padding:10px 12px}
 .status{margin-top:10px;color:var(--muted);font-weight:600;text-align:center}
 
-/* panel */
+
 .panel-top{display:flex;gap:12px;align-items:center}
 .panel-top input{flex:1;padding:10px;border-radius:10px;border:none;background:rgba(255,255,255,0.02);color:inherit}
 .panel-actions{display:flex;gap:8px}
 
-/* table */
+
 .table-wrap{margin-top:14px;overflow:auto;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
 .table{width:100%;border-collapse:collapse;min-width:700px}
 .table thead th{padding:12px;text-align:left;color:var(--muted);font-size:13px;border-bottom:1px solid rgba(255,255,255,0.03)}
@@ -53,14 +53,14 @@ html,body{height:100%; margin:0; font-family:var(--fw); background:linear-gradie
 .table tbody tr:hover{background:rgba(255,255,255,0.02)}
 .table button{padding:6px 10px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
 
-/* footer */
+
 .footer{text-align:center;color:var(--muted);margin-top:14px;font-size:13px}
 
-/* toast */
+
 .toast{position:fixed;right:24px;bottom:24px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:white;padding:12px 18px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.5);transform:translateY(20px);opacity:0;pointer-events:none;transition:all .25s}
 .toast.show{transform:translateY(0);opacity:1;pointer-events:auto}
 
-/* small screens */
+
 @media(max-width:720px){
   .row{flex-direction:column}
   .nav{flex-wrap:wrap}
