@@ -26,7 +26,7 @@ const btnCSV = document.getElementById("btnCSV");
 
 const toast = document.getElementById("toast");
 
-// --- Navegação ---
+
 menuInicial.addEventListener("click", () => switchSection("inicial"));
 menuAdmin.addEventListener("click", () => switchSection("admin"));
 
@@ -44,7 +44,7 @@ function switchSection(section) {
   }
 }
 
-// --- Turmas dinâmicas ---
+
 const turmas = {
   DS: ["DS I","DS II","DS III"],
   GASTRO: ["GASTRO I","GASTRO II","GASTRO III"],
@@ -64,14 +64,14 @@ cursoSelect.addEventListener("change", () => {
   }
 });
 
-// --- Toast ---
+
 function showToast(msg) {
   toast.textContent = msg;
   toast.classList.add("show");
   setTimeout(()=>toast.classList.remove("show"),2000);
 }
 
-// --- Registrar presença ---
+
 formPresenca.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -85,7 +85,7 @@ formPresenca.addEventListener("submit", async (e) => {
     return;
   }
 
-  // Validação de nome completo
+  
   if(nome.split(" ").length < 2){
     showToast("Digite o nome completo (nome e sobrenome).");
     return;
@@ -101,7 +101,7 @@ formPresenca.addEventListener("submit", async (e) => {
     return;
   }
 
-  // Formatar data e hora
+  
   const now = new Date();
   const data = now.toLocaleDateString("pt-BR");
   const hora = now.toLocaleTimeString("pt-BR");
@@ -128,7 +128,7 @@ formPresenca.addEventListener("submit", async (e) => {
   }
 });
 
-// --- Admin login ---
+
 btnEntrar.addEventListener("click", () => {
   if(adminSenha.value === adminPassword){
     adminLoginCard.style.display = "none";
@@ -147,7 +147,7 @@ btnLogout.addEventListener("click", () => {
   showToast("Logout realizado");
 });
 
-// --- Carregar tabela ---
+
 async function loadTable() {
   tableBody.innerHTML = "";
   try {
@@ -172,7 +172,7 @@ async function loadTable() {
   }
 }
 
-// --- Editar registro ---
+
 async function editRecord(index){
   try{
     const res = await fetch(sheetApi);
@@ -200,7 +200,7 @@ async function editRecord(index){
   }
 }
 
-// --- Buscar ---
+
 searchInput.addEventListener("input", () => {
   const term = searchInput.value.toLowerCase();
   Array.from(tableBody.children).forEach(tr=>{
@@ -209,7 +209,7 @@ searchInput.addEventListener("input", () => {
   });
 });
 
-// --- Exportar CSV ---
+
 btnCSV.addEventListener("click", async () => {
   try{
     const res = await fetch(sheetApi);
